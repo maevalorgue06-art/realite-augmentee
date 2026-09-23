@@ -29,6 +29,7 @@
     <script>
       document.addEventListener("DOMContentLoaded", function() {
             var music = document.getElementById("audio");
+            var video = document.getElementById("polak");
             const sceneEl = document.querySelector('a-scene');
             let arSystem;
             sceneEl.addEventListener('loaded', function () {
@@ -39,14 +40,16 @@
             exampleTarget.addEventListener("targetFound", event => {
                 if (music.paused) {
                     music.play();
-                }                
+                }
+                video.play();
                 console.log("target found");
             });
             // detect target lost
             exampleTarget.addEventListener("targetLost", event => {
                 if (!music.paused) {
                     music.pause();
-                }              
+                }
+                video.pause();
                 console.log("target found");
             });
       });
@@ -55,18 +58,20 @@
 
 <body>
     <audio src="musique/porte_dorléans.mp3" style="display: none;" id="audio"></audio>
-
+   
     <a-scene
-        mindar-image="imageTargetSrc: images/monimage.mind;"
+        mindar-image="imageTargetSrc: image/monimage.mind;"
         color-space="sRGB" renderer="colorManagement: true, physicallyCorrectLights" vr-mode-ui="enabled: false"
         device-orientation-permission-ui="enabled: false">
 
         <a-assets>
-            <img id="card" src="images/monimage.jpg" />
+            <img id="card" src="image/monimage.png" />
+            <video id="polak" src="image/plkaka.mp4" preload="auto" loop="true" muted="true" playsinline webkit-playsinline crossorigin="anonymous"></video>
+           
         </a-assets>
 
         <a-entity mindar-image-target="targetIndex: 0" id="affiche">
-            <a-plane id="plan" class="clickable" src="#card" position="0 0 0" rotation="0 0 0"></a-plane>
+            <a-plane id="plan" class="clickable" src="#polak" position="0 0 0" rotation="0 0 0"></a-plane>
             <a-gltf-model rotation="0 0 0 " position="0 0 0" scale="1 1 1" src="#gltf-asset" />
         </a-entity>
 
