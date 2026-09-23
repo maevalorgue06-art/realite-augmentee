@@ -2,22 +2,37 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
-    
     <script src="https://aframe.io/releases/1.3.0/aframe.min.js"></script>
     <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
+
+    <script>
+        AFRAME.registerComponent('play-on-scan',{
+            init: function () {
+                var el = this.el;
+                var music = document.getElementById("audio");
+                el.sceneEl.addEventListener('markerFound', function () {
+                        if (music.paused) {
+                            music.play();
+                        }
+                });
+                el.sceneEl.addEventListener('markerLost', function () {
+                        if (!music.paused) {
+                            music.pause();
+                        }
+                });
+            }
+        });
+    </script>
 </head>
 <body style='margin : 0px; overflow: hidden;'>
+    <audio src="https://music.youtube.com/watch?v=1ar8oQxoO5o" style="display: none;" id="audio"></audio>
+
     <a-scene embedded arjs='sourceType: webcam; debugUIEnabled: false; detectionMode: mono_and_matrix; matrixCodeType: 3x3;'>
 
-       <a-marker type='barcode' value='0'>
-            <a-box position='0 0.5 0' color="green"></a-box>
-        </a-marker>
-       
-        <a-marker type='barcode' value='6'>
-            <a-sphere position='0 0.5 0' color="pink"></a-box>
-        </a-marker>
+    <a-marker id="animated-marker" type='barcode' value='6' play-on-scan></a-marker>
 
-        <a-entity camera></a-entity>
+    <a-entity camera></a-entity>
     </a-scene>
 </body>
+
 </html>
