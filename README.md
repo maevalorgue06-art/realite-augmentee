@@ -1,1 +1,1 @@
-https://maevalorgue06-art.github.io/realite-augmentee/
+https://maevalorgue06-art.github.io/realite-augmentee.github.io/
